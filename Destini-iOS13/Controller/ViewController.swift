@@ -18,38 +18,27 @@ class ViewController: UIViewController {
 //    let choise1 = "Take a left."
 //    let choise2 = "Take a right."
     
-    let stories = [
-    Story(title: "You see a fork in the road.", choise1: "Take a left.", choise2: "Take a right."),
-        Story(title: "You see a tiger", choise1: "Shout for help.", choise2: "Play dead."),
-        Story(title: "YOu find a treasure chest.", choise1: "Open it.", choise2: "Check for traps.")
-    ]
-    
-    var storyNumber = 0
+   var brain = StoryBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyLabel.text = stories[storyNumber].title
-        choice1Button.setTitle(stories[storyNumber].choise1, for: .normal)
-        choice2Button.setTitle(stories[storyNumber].choise2, for: .normal)
+        storyLabel.text = brain.getStoryText()
+        choice1Button.setTitle(brain.getStoryChoice1(), for: .normal)
+        choice2Button.setTitle(brain.getStoryChoice2(), for: .normal)
 
     }
 
     @IBAction func choiseMade(_ sender: UIButton) {
-        guard let userChoise = sender.currentTitle else { return }
-        if userChoise == stories[storyNumber].choise1 {
-            storyNumber = 1
-            updateUI()
-        } else {
-            storyNumber = 2
-            updateUI()
-        }
+        guard let userAnswer = sender.currentTitle else { return }
+        brain.nextStory(userChoice: userAnswer)
+        updateUI()
     }
     
     func updateUI () {
-        storyLabel.text = stories[storyNumber].title
-        choice1Button.setTitle(stories[storyNumber].choise1, for: .normal)
-        choice2Button.setTitle(stories[storyNumber].choise2, for: .normal)
+        storyLabel.text = brain.getStoryText()
+        choice1Button.setTitle(brain.getStoryChoice1(), for: .normal)
+        choice2Button.setTitle(brain.getStoryChoice2(), for: .normal)
     }
     
 

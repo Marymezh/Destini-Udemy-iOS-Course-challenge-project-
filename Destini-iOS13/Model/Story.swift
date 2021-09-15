@@ -12,7 +12,7 @@ import UIKit
 struct Story {
 
     var title: String
-    var choise1: String
-    var choise2: String
+    var choice1: String
+    var choice2: String
     
 }
